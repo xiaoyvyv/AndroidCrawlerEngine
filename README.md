@@ -106,3 +106,90 @@ implementation(project(":crawler-core"))
   见爬虫插件开发部分
 
 ## 如何开发一个爬虫插件包？
+开发一个爬虫插件包也很简单，引入一个 `Gradle plugin` 即可
+1. 在项目级的 `build.gradle.kts` 内添加依赖
+   ```kotlin
+   // ...
+   
+   buildscript {
+     dependencies {
+       // ...
+   
+       classpath("com.xiaoyv.gradle:crawler-plugin:$version")
+     }
+   }
+   
+   // ...
+   ```
+2. 新建一个 `application` 类型的空模块，注意是 `application` 不是 `library`。然后引入该爬虫 Gradle 插件和依赖
+   ```kotlin
+   plugins {
+       alias(libs.plugins.androidApplication)
+       alias(libs.plugins.kotlinAndroid)
+   }
+
+   // 引入插件
+   apply(plugin = "com.xiaoyv.gradle.crawler")
+
+   // 这里可以配置清单文件的相关开发信息
+   configure<com.xiaoyv.gradle.crawler.extension.CrawlerExtension> {
+       crawlerName.set("plugin.pak")
+       crawlerAuthor.set("why")
+       crawlerDescription.set("This is a collection of crawler packages")
+       crawlerCreateTime.set(System.currentTimeMillis())
+       crawlerUpdateTime.set(System.currentTimeMillis())
+   }
+
+   dependencies {
+       // 注意这里使用的是 compileOnly，因为加载爬虫插件包的项目已经存在相关的类了，不需要插件包引入。
+       compileOnly(project(":crawler-api"))
+
+       // ...
+   }
+   ```
+
+3. 在这个模块创建一个爬虫类，如：`WebTestCrawler` 继承自 `ICrawler` 类。
+
+   注意：
+
+   爬虫类需要使用注解 `CrawlerObj` 标记，`CrawlerObj` 可以配置爬虫类的名字描述等，会自动生成到清单文件。
+
+   爬虫类里面暴露的爬虫方法必须要使用 `CrawlerMethod` 标记，`CrawlerMethod` 可以配置描述信息。
+
+   如果爬虫类没有被 `CrawlerObj` 标记，将不会生成到清单文件，也无法被 `getCrawlerByName` 加载。
+
+   如果爬虫类的需要暴露的方法没有被 `CrawlerMethod` 标记，则该方法不会生成到清单文件，也无法通过 `call` 等方法调用。
+
+   ```kotlin
+   package com.xiaoyv.crawler.test
+   
+   import android.content.Context
+   import android.widget.Toast
+   import com.xiaoyv.crawler.annotation.CrawlerMethod
+   import com.xiaoyv.crawler.annotation.CrawlerObj
+   import com.xiaoyv.crawler.api.ICrawler
+   import okhttp3.HttpUrl.Companion.toHttpUrl
+   import okhttp3.Request
+   import org.jsoup.Jsoup
+   
+   @CrawlerObj(name = "webCrawler", description = "WebTestCrawler", version = 1)
+   class WebTestCrawler : ICrawler() {
+   
+       override fun onCreate() {
+   
+       }
+   
+       @CrawlerMethod(description = "http test")
+       fun httpTest(url: String): String {
+           val response = useHttpClient.newCall(Request(url.toHttpUrl())).execute()
+           return response.body.string()
+       }
+   }
+   ```
+4. 编译插件包
+
+   直接执行该模块的 `gradle` 任务 `build` 组下的 `buildCrawlerRelease` 任务即可，生成的插件包位于 `build/outputs` 目录下面。
+   
+   ![图片](https://github.com/xiaoyvyv/AndroidCrawlerEngine/assets/29088158/eda7a0aa-525e-4edb-a335-f1d869ca4097)
+   
+   生成的插件包即可通过 `CrawlerEngine` 进行加载运行。
