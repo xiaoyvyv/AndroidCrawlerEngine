@@ -1,0 +1,127 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.xiaoyv.gradle",
+    "module": "crawler-plugin",
+    "version": "0.0.1",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.4"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 11,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "files": [
+        {
+          "name": "crawler-plugin-0.0.1.jar",
+          "url": "crawler-plugin-0.0.1.jar",
+          "size": 34512,
+          "sha512": "a413cd81e34c89785152fd38e870bbf65b838600ef67a32dfb8dd26da4c6e99e1291e832985867877884a608c667ef06a45052fac8de1d78ad238b2cf86c0c9d",
+          "sha256": "18e11b4397ee8dcb71b3796b4e41c88801028b00e7ecdb9a0860d802a318f7a6",
+          "sha1": "c6a175b84cbe319db7cfefe4bc034c245ac6c063",
+          "md5": "dd75d143b18f9545a45c39bd15039500"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 11,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "1.9.0"
+          }
+        },
+        {
+          "group": "com.android.tools.build",
+          "module": "gradle",
+          "version": {
+            "requires": "8.3.0-alpha13"
+          }
+        },
+        {
+          "group": "com.android.tools.build",
+          "module": "gradle-api",
+          "version": {
+            "requires": "8.3.0-alpha13"
+          }
+        },
+        {
+          "group": "com.google.code.gson",
+          "module": "gson",
+          "version": {
+            "requires": "2.10.1"
+          }
+        },
+        {
+          "group": "org.ow2.asm",
+          "module": "asm",
+          "version": {
+            "requires": "9.5"
+          }
+        },
+        {
+          "group": "org.ow2.asm",
+          "module": "asm-commons",
+          "version": {
+            "requires": "9.5"
+          }
+        },
+        {
+          "group": "org.ow2.asm",
+          "module": "asm-util",
+          "version": {
+            "requires": "9.5"
+          }
+        },
+        {
+          "group": "com.xiaoyv.gradle",
+          "module": "crawler-annotation",
+          "version": {
+            "requires": "0.0.1"
+          }
+        },
+        {
+          "group": "com.xiaoyv.gradle",
+          "module": "crawler-common",
+          "version": {
+            "requires": "0.0.1"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "crawler-plugin-0.0.1.jar",
+          "url": "crawler-plugin-0.0.1.jar",
+          "size": 34512,
+          "sha512": "a413cd81e34c89785152fd38e870bbf65b838600ef67a32dfb8dd26da4c6e99e1291e832985867877884a608c667ef06a45052fac8de1d78ad238b2cf86c0c9d",
+          "sha256": "18e11b4397ee8dcb71b3796b4e41c88801028b00e7ecdb9a0860d802a318f7a6",
+          "sha1": "c6a175b84cbe319db7cfefe4bc034c245ac6c063",
+          "md5": "dd75d143b18f9545a45c39bd15039500"
+        }
+      ]
+    }
+  ]
+}
