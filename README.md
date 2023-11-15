@@ -156,6 +156,13 @@ implementation(project(":crawler-core"))
        crawlerUpdateTime.set(System.currentTimeMillis())
    }
 
+   // ...
+
+   android {
+       // ...
+   }
+   // ...
+
    dependencies {
        // 注意这里使用的是 compileOnly，因为加载爬虫插件包的项目已经存在相关的类了，不需要插件包引入。
        compileOnly(project(":crawler-api"))
